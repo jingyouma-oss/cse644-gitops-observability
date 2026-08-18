@@ -1,0 +1,8 @@
+.env
+kubeconfig*
+*.key
+*.pem
+*.token
+__pycache__/
+work/
+work-*

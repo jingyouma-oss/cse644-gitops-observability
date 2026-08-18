@@ -1,0 +1,13 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+scrape_configs:
+  - job_name: cse644-gitops-app
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - gitops-app.gitops-demo.svc.cluster.local:8888
+        labels:
+          course: CSE644
+          student: Jingyou_Ma
+
