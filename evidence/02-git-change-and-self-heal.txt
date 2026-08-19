@@ -1,0 +1,37 @@
+CSE644 Assignment 03 - Git-driven change and drift reconciliation
+Student: Jingyou Ma
+
+Git-driven meaningful change
+-----------------------------
+Commit: c015089e7cc3d63fb35c18cf1f5176920681ba1b
+Commit message: Change application message through GitOps
+
+Argo CD after reconciliation:
+Sync: Synced
+Revision: c015089e7cc3d63fb35c18cf1f5176920681ba1b
+Deployment rollout: successfully rolled out
+
+Live deployment setting:
+APP_MESSAGE=GitOps update reconciled for Jingyou Ma
+
+Application response after reconciliation:
+{"student":"Jingyou Ma","course":"CSE644","assignment":"GitOps and Application Observability","version":"3.0.0","message":"GitOps update reconciled for Jingyou Ma"}
+
+Live-state drift and self-heal
+------------------------------
+Command used only to introduce deliberate drift:
+kubectl -n gitops-demo scale deployment/gitops-app --replicas=5
+
+Immediately after drift:
+NAME         DESIRED   READY
+gitops-app   5         2
+
+After Argo CD self-heal:
+NAME         DESIRED   READY
+gitops-app   2         2
+Argo CD: Synced / Healthy
+
+Explanation: Git declares two replicas and the Argo Application enables
+selfHeal. The manual five-replica live state differed from Git, so Argo CD
+automatically restored two replicas. The manual command was used only as a
+controlled drift demonstration, not as a repair.
