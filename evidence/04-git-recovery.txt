@@ -1,0 +1,22 @@
+CSE644 Assignment 03 - Git-based recovery
+Student: Jingyou Ma
+
+Recovery commit: 3ffe1b9cf9d4fee0d56ce5d0ef52905f11d445d0
+Commit message: Recover invalid image through desired state
+Corrected image: jingyouma/cse644-gitops-app:3.0.0
+
+Final controller state:
+Sync: Synced
+Health: Healthy
+Revision: 3ffe1b9cf9d4fee0d56ce5d0ef52905f11d445d0
+
+Final workload state:
+gitops-app deployment: 2/2 Ready, 2 Available
+Both application Pods: 1/1 Running
+
+Application response:
+{"student":"Jingyou Ma","course":"CSE644","assignment":"GitOps and Application Observability","version":"3.0.0","message":"GitOps update reconciled for Jingyou Ma"}
+
+Outcome: recovery was performed by correcting and committing desired state,
+not by applying an unmanaged live-cluster fix. Argo CD reconciled that Git
+revision and Kubernetes completed the healthy rollout.

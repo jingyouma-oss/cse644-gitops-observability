@@ -1,0 +1,38 @@
+CSE644 Assignment 03 - application observability
+Student: Jingyou Ma
+
+Prometheus target query
+-----------------------
+Query: up{job="cse644-gitops-app"}
+Result: 1
+Labels include course="CSE644" and student="Jingyou_Ma".
+Meaning: Prometheus can reach and successfully scrape the application's own
+/metrics endpoint.
+
+Activity response
+-----------------
+Traffic generator: scripts/generate-load.ps1 -Requests 120
+Request counter before load: 206
+Request counter after load: 288
+
+After-load status query:
+sum by (status) (cse644_http_requests_total)
+HTTP 200 = 286
+HTTP 404 = 2
+
+The counter increase proves that application behavior changes the collected
+monitoring data. Status labels separate normal activity from controlled 404
+activity. Request rate on the Grafana time series shows when load occurred.
+
+Grafana health API
+------------------
+database: ok
+version: 13.1.3
+
+Dashboard UID: cse644-gitops-observability
+Dashboard title: CSE644 GitOps Application Observability - Jingyou Ma
+Provisioning source: manifests/cse644-dashboard.json and associated ConfigMaps
+
+The version-controlled dashboard evaluates request rate by path, cumulative
+request count, Prometheus target health, HTTP status activity, and in-flight
+requests. No manual dashboard configuration is required.
