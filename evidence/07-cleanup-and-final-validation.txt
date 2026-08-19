@@ -1,0 +1,36 @@
+CSE644 Assignment 03 - cleanup and reproducibility validation
+Student: Jingyou Ma
+
+Cleanup performed
+-----------------
+Command: ./scripts/cleanup.ps1
+Deleted: Application cse644-gitops-observability
+Deleted: namespace gitops-demo
+Deleted: namespace argocd
+Verification result: requested assignment namespaces were NotFound.
+
+The KinD cluster itself was intentionally retained, as documented in README,
+so it can be reused and inspected. It can be deleted after grading with:
+kind delete cluster --name cse644-gitops
+
+Reproducible final deployment
+-----------------------------
+Argo CD v3.5.1 was reinstalled using the pinned official manifest, then only
+bootstrap/argocd-application.yaml was applied.
+
+Final result after Argo recreated resources from Git:
+Namespaces: argocd Active; gitops-demo Active
+Argo CD Application: Synced / Healthy
+Git revision: 8686529e368289bb7d3760c26ab4abacf8e717b5
+gitops-app: 2/2 Ready
+prometheus: 1/1 Ready
+grafana: 1/1 Ready
+
+Final application response includes:
+student=Jingyou Ma
+version=3.0.0
+message=GitOps update reconciled for Jingyou Ma
+
+Outcome: cleanup removed the assignment resources, verification confirmed
+their absence, and the documented bootstrap process reproduced the complete
+healthy platform from the repository.
