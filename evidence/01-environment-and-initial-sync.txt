@@ -1,0 +1,33 @@
+CSE644 Assignment 03 - focused evidence
+Student: Jingyou Ma
+
+Kubernetes environment
+----------------------
+Cluster: KinD cse644-gitops on Docker Desktop
+Node: cse644-gitops-control-plane
+Status: Ready
+Kubernetes: v1.36.1
+Container runtime: containerd 2.3.1
+
+Initial Argo CD deployment
+--------------------------
+Application: cse644-gitops-observability
+Sync: Synced
+Health: Healthy
+Git revision: 5c244945e86a4051f0b577b7aba7e2b94ed04b34
+
+Argo-created workload state:
+gitops-app deployment       2/2 Ready
+prometheus deployment       1/1 Ready
+grafana deployment          1/1 Ready
+gitops-app service          ClusterIP, port 8888
+prometheus service          ClusterIP, port 9090
+grafana service             ClusterIP, port 3000
+
+Verification commands:
+kubectl get nodes -o wide
+kubectl -n argocd get application cse644-gitops-observability
+kubectl -n gitops-demo get all
+
+Outcome: Argo CD created the application and observability stack from the
+version-controlled manifests. No application resource was applied manually.

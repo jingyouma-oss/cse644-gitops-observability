@@ -2,7 +2,7 @@
 
 **Student:** Jingyou Ma  
 **GitHub username:** `jingyouma-oss`  
-**Kubernetes:** KinD v0.32.0 on Docker Desktop, Kubernetes v1.36.1  
+**Kubernetes:** KinD v0.32.0 cluster `cse644-gitops` on Docker Desktop, Kubernetes v1.36.1  
 **GitOps:** Argo CD v3.5.1  
 **Application image:** `jingyouma/cse644-gitops-app:3.0.0`  
 **Repository:** <https://github.com/jingyouma-oss/cse644-gitops-observability>
@@ -37,7 +37,7 @@ Argo CD ──automated sync, prune, self-heal──> namespace gitops-demo
 ## Prerequisites
 
 - Docker Desktop with Linux containers
-- Local KinD cluster and `kubectl`
+- Local KinD cluster `cse644-gitops` and `kubectl`
 - Git and GitHub CLI
 - Argo CD installed in namespace `argocd`
 
@@ -48,7 +48,8 @@ Build and publish the fixed application version:
 ```powershell
 docker build -t jingyouma/cse644-gitops-app:3.0.0 ./app
 docker push jingyouma/cse644-gitops-app:3.0.0
-kind load docker-image jingyouma/cse644-gitops-app:3.0.0 --name cse644
+kind create cluster --config ./kind-config.yaml --wait 120s
+kind load docker-image jingyouma/cse644-gitops-app:3.0.0 --name cse644-gitops
 ```
 
 Install the pinned Argo CD release and create only the bootstrap `Application` object manually:
@@ -119,9 +120,8 @@ Generate visible activity:
 kubectl get namespace gitops-demo argocd
 ```
 
-Successful cleanup reports both namespaces as not found. The KinD cluster may remain for other coursework; delete it separately with `kind delete cluster --name cse644` only if it is no longer needed.
+Successful cleanup reports both namespaces as not found. The KinD cluster may remain for review; delete it separately with `kind delete cluster --name cse644-gitops` only after grading.
 
 ## Security
 
 This repository contains no GitHub tokens, kubeconfig files, private keys, real Secret values or Grafana administrator passwords. Do not add generated credentials or Argo CD initial admin secrets to evidence.
-
