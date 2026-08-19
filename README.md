@@ -122,6 +122,13 @@ kubectl get namespace gitops-demo argocd
 
 Successful cleanup reports both namespaces as not found. The KinD cluster may remain for review; delete it separately with `kind delete cluster --name cse644-gitops` only after grading.
 
+## Evidence map
+
+The focused [evidence index](evidence/README.md) maps every required outcome to
+small command excerpts or a dashboard screenshot. In particular, Git history
+shows the complete sequence: initial platform, meaningful message change,
+invalid-image failure, Git-based recovery, and final validated documentation.
+
 ## Security
 
 This repository contains no GitHub tokens, kubeconfig files, private keys, real Secret values or Grafana administrator passwords. Do not add generated credentials or Argo CD initial admin secrets to evidence.
