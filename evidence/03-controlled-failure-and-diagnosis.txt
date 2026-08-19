@@ -1,0 +1,28 @@
+CSE644 Assignment 03 - controlled failure diagnosis
+Student: Jingyou Ma
+
+Failure introduced through Git
+------------------------------
+Commit: 20b479b399918439cadbf22bc86222a81bc4a410
+Declared image: jingyouma/cse644-gitops-app:3.0.0-does-not-exist
+
+Argo CD controller evidence:
+Sync: Synced
+Health: Progressing
+Revision: 20b479b399918439cadbf22bc86222a81bc4a410
+
+Kubernetes evidence:
+New rollout Pod: 0/1 ImagePullBackOff
+Existing Pods: 2/2 Running (rolling update preserved availability)
+
+Focused event excerpt:
+Back-off pulling image "jingyouma/cse644-gitops-app:3.0.0-does-not-exist"
+Failed to pull image: failed to resolve reference; image tag not found
+Error: ErrImagePull
+Error: ImagePullBackOff
+
+Diagnosis: the Git revision was successfully reconciled, but Kubernetes could
+not fetch the nonexistent immutable tag. Argo therefore reported the desired
+revision as Synced while application health remained Progressing. This
+distinction proves that successful configuration sync does not guarantee a
+healthy workload.

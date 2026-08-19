@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: jingyouma/cse644-gitops-app:3.0.0-does-not-exist
+          image: jingyouma/cse644-gitops-app:3.0.0
           imagePullPolicy: IfNotPresent
           env:
             - {name: APP_VERSION, value: "3.0.0"}
